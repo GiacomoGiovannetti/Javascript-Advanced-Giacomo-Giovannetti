@@ -7,6 +7,7 @@ logoLibro.src = imgLibro;
 let searchText  = document.querySelector('#search-text');
 let searchButton = document.querySelector('#search-button');
 let bodyTitle = document.querySelector('#body-title');
+let bodyContent = document.querySelector('#body-content');
 let searchInput;
 let bookList = [];
 
@@ -26,7 +27,6 @@ searchButton.addEventListener('click', (e)=>{
 })
 
 
-
 //crea funzione che prende i dati da API per categoria 
  async function getBookList(searchInput){
     try{
@@ -36,7 +36,7 @@ searchButton.addEventListener('click', (e)=>{
         const booksResponse= response.data.works;
        // console.log(booksResponse);
         createBookObj(booksResponse);
-        createDivList();
+        createListContainer();
     }catch(err){
         console.error('errore nella presa di dati', err);
     }
@@ -49,7 +49,7 @@ searchButton.addEventListener('click', (e)=>{
             book.authors = getAuthorName(element);
             bookList.push(book);
         });
-        //console.log(bookList);
+        console.log(bookList);
     }
     //funzione prende il nome dell'autore dall'array authors e lo ritorna
     function  getAuthorName(element){
@@ -60,9 +60,40 @@ searchButton.addEventListener('click', (e)=>{
     }
 
 //crea funzione che genera div lista e nasconde div descrizione
- function createDivList(){
+
+ //crea unordered list dove inserire i libri come elemnti della lista
+ function createListContainer(){
     bodyTitle.textContent = 'Book List';
+    let bookListElement = document.createElement('ul');
+    bookListElement.setAttribute('id', 'book-list-element');
+    bodyContent.appendChild(bookListElement);
+    createList(bookListElement);
  } 
+ //Itera gli elementi di bookList creando gli elementi della lista HTML 
+ function createList(bookListElement){
+    for(let element of bookList){
+        createDivListElement(bookListElement, element.title, element.authors);
+    }
+ }
+ //crea container della coppia titolo/autore degli elementi della lista 
+ function createDivListElement(bookListElement, bookTitle, bookAuthor){
+    let containerListElement = document.createElement('div');
+    containerListElement.setAttribute('id', 'container-list-element');
+    bookListElement.appendChild(containerListElement);
+    createListElement(containerListElement, bookTitle);
+    createListElement(containerListElement,"", bookAuthor);
+ }
+//crea elementi della lista, in base ai parametri forniti crea l'elemento titolo oppure autore
+ function createListElement(containerListElement, bookTitle, bookAuthor){
+    let listElement= document.createElement('li');
+    containerListElement.appendChild(listElement);
+    if (bookTitle){
+        listElement.textContent = `Book Title: ${bookTitle}`;
+    }else{
+        listElement.textContent = `Book Author: ${bookAuthor}`;
+    }
+
+ }
 
 //crea funzione che al click su un libro della lista prende la descrizione dall'API 
 
