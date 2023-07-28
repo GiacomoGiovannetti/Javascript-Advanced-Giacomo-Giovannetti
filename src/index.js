@@ -6,6 +6,7 @@ logoLibro.src = imgLibro;
 
 let searchText  = document.querySelector('#search-text');
 let searchButton = document.querySelector('#search-button');
+let bodyTitle = document.querySelector('#body-title');
 let searchInput;
 let bookList = [];
 
@@ -33,8 +34,9 @@ searchButton.addEventListener('click', (e)=>{
         const response = await axios.get(`https://openlibrary.org/subjects/${searchInput}.json`);
         //creo Oggetto con i libri di quella categoria
         const booksResponse= response.data.works;
-        console.log(booksResponse);
+       // console.log(booksResponse);
         createBookObj(booksResponse);
+        createDivList();
     }catch(err){
         console.error('errore nella presa di dati', err);
     }
@@ -42,25 +44,25 @@ searchButton.addEventListener('click', (e)=>{
     //funzione che crea un oggetto che contiene titolo e autore del libro e lo inserisce nel array 'bookList'
     function createBookObj(booksResponse){
         booksResponse.forEach(element => {
-            console.log(element)
-            getAuthorName(element);
-            console.log(authorName);
             let book = new Object();
             book.title = element.title;
-            book.authors = authorName;
+            book.authors = getAuthorName(element);
             bookList.push(book);
         });
-        console.log(bookList);
+        //console.log(bookList);
     }
     //funzione prende il nome dell'autore dall'array authors e lo ritorna
     function  getAuthorName(element){
-        element.authors.forEach(elem =>{
-            let authorName = elem.name;
-            return authorName;
-        })
+        for(let author of element.authors){
+            let name = author.name;
+            return name;
+        }
     }
 
 //crea funzione che genera div lista e nasconde div descrizione
+ function createDivList(){
+    bodyTitle.textContent = 'Book List';
+ } 
 
 //crea funzione che al click su un libro della lista prende la descrizione dall'API 
 
