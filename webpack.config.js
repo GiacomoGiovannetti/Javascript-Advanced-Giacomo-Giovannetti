@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+    entry: "./src/Js/index.js",
      output:{
       assetModuleFilename: '[name][ext]',
     },
