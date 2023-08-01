@@ -3,6 +3,7 @@ import {getBookList} from './apiRequest';
 import { getBookDescription } from './apiRequest';
 import { createElement } from './domManipulation';
 import { SearchInputEmpty } from './error-handling';
+import '../css/style.css';
 
 let logoLibro = document.querySelector('#logo-libro');
 logoLibro.src = imgLibro;
