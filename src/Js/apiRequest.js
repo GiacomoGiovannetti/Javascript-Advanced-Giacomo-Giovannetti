@@ -13,7 +13,6 @@ export async function getBookList(searchInput){
         const response = await axios.get(`https://openlibrary.org/subjects/${searchInput}.json`);
         //creo Oggetto con i libri di quella categoria
         if(response.data.work_count == 0){
-            console.log(response.data)
             throw new SubjectNotFound('Subject not found');
         }else{
             const books= response.data.works;
