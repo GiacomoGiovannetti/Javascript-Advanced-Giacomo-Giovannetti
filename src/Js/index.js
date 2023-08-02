@@ -1,12 +1,10 @@
-import imgLibro from '../assets/libro.png'
 import {getBookList} from './apiRequest';
 import { getBookDescription } from './apiRequest';
 import { createElement } from './domManipulation';
 import { SearchInputEmpty } from './error-handling';
+import { addTailwindClass } from './domManipulation';
+import { resetPageContent } from './domManipulation';
 import '../css/style.css';
-
-let logoLibro = document.querySelector('#logo-libro');
-logoLibro.src = imgLibro;
 
 let searchText  = document.querySelector('#search-text');
 let searchButton = document.querySelector('#search-button');
@@ -14,7 +12,11 @@ let bodyTitle = document.querySelector('#body-title');
 let bookListElement = document.querySelector('#book-list');
 let bodySubtitle = document.querySelector('#body-subtitle');
 let bookDescription = document.querySelector('#book-description');
+let howToUseList = document.querySelector('#how-to-use-list');
+let resetPage = document.querySelector('#reset-page');
 let searchInput;
+
+
 
 searchText.addEventListener('keypress', (e)=>{
     //La funzione controlla che il tasto premuto sia 'invio', se lo è prende il testo di 'searchText'
@@ -28,7 +30,7 @@ searchText.addEventListener('keypress', (e)=>{
 searchButton.addEventListener('click', (e)=>{
     //al click la funzione prende il testo di 'searchText'
     searchInput= searchText.value;
-    emptySearchBar(searchInput);
+    SearchInputEmpty(searchInput);
     getBookList(searchInput);
 })
 
@@ -58,6 +60,7 @@ export class Book{
  //crea unordered list dove inserire i libri come elemnti della lista
  export function createList(){
     bodyTitle.textContent = 'Book List';
+    howToUseList.classList.add('hidden');
     addListElements(bookListElement);
     bookListElement.addEventListener('click', (e)=>{
         verifyClickedElement(e);
@@ -67,7 +70,7 @@ export class Book{
  function addListElements(bookListElement){
     for(let element of Book.allBooks){
         //crea container della coppia titolo/autore degli elementi della lista 
-        const containerListElement = createElement('containerListElement','div', bookListElement, 'container-list-element');   
+        const containerListElement = createElement('containerListElement','div', bookListElement, ['container-list-element', 'border', 'border-slate-900', 'grid', 'grid-cols-2' , 'p-2', 'm-2', 'mt-5', 'font-semibold', 'rounded-2xl', 'shadow-lg']);   
         createListElement(containerListElement, element.title);
         createListElement(containerListElement, '', element.authors);
     }
@@ -77,9 +80,10 @@ export class Book{
     const listElement = createElement('listElement', 'li', parent, 'list-element');
     if (bookTitle){
         listElement.textContent = `${bookTitle}`;
-        listElement.classList.add('book-title');
+        addTailwindClass(listElement, ['book-title', 'cursor-pointer', 'hover:text-slate-800', 'flex', 'items-center', 'justify-center'])
     }else{
         listElement.textContent = `${bookAuthor}`;
+        addTailwindClass(listElement, ['flex', 'items-center', 'justify-center']);
     }
  }
 
@@ -105,11 +109,19 @@ function getBookKey(bookTitle){
 
 //crea funzione che genera div descrizione e nasconde div lista 
 export function createDescription(bookKey, description){
+    bookListElement.classList.add('hidden');
     for(let element of Book.allBooks){
         if(bookKey === element.key){
             bodyTitle.textContent = `${element.title}`;
             bodySubtitle.textContent= `${element.authors}`;
         }
     }
+    addTailwindClass(bodySubtitle, ['font-medium', 'text-2xl'])
+    addTailwindClass(bookDescription, ['p-5', 'text-left'])
     bookDescription.textContent= `${description}`;
 }
+
+//funzione per reset della pagina
+resetPage.addEventListener('click', ()=> {
+    resetPageContent(bodyTitle, howToUseList, bookListElement,bodySubtitle, bookDescription);
+})
