@@ -1,6 +1,3 @@
-import { addTailwindClass } from "./domManipulation";
-import { removeTailwindClass } from "./domManipulation";
-
 let errorContainer = document.querySelector('#error-container');
 let errorMessage = document.querySelector('#error-message');
 let errorClearer = document.querySelector('#clear-error-button');
