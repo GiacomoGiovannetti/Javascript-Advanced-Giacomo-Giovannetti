@@ -3,24 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Looking for a new book to read ? Then insert the subject and read the description of the book you find interesting!">
     <title>Progetto Js Advanced di Giacomo Giovannetti</title>
     <!-- <link rel="stylesheet" href="dist/style.css"> -->
 </head>
-<body class="h-screen font-GentiumBookPlus">
+<body class="h-screen font-GentiumBookPlus  scrollbar-style">
     <header>
         <div class="flex justify-center align-baseline bg-zinc-900 text-slate-400">
-            <h1 class="text-5xl font-bold text-center p-5 order-2">Library</h1>
+            <h1 class="text-5xl font-bold text-center p-5 order-2 md:text-7xl">Library</h1>
             <a id="reset-page" class="order-1 m-1 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12 cursor-pointer scale-animation md:w-16 md:h-16">
                     <path d="M11.25 4.533A9.707 9.707 0 006 3a9.735 9.735 0 00-3.25.555.75.75 0 00-.5.707v14.25a.75.75 0 001 .707A8.237 8.237 0 016 18.75c1.995 0 3.823.707 5.25 1.886V4.533zM12.75 20.636A8.214 8.214 0 0118 18.75c.966 0 1.89.166 2.75.47a.75.75 0 001-.708V4.262a.75.75 0 00-.5-.707A9.735 9.735 0 0018 3a9.707 9.707 0 00-5.25 1.533v16.103z" />
                   </svg>
             </a>
         </div>
         <nav>
             <div id= "search-bar-container" class="flex justify-center items-center my-10 "> 
-                <input id="search-text" type= "text" placeholder="Insert Subject" class="bg-transparent border border-r-0 border-slate-500 p-2 rounded-l outline-none shadow-lg focus:border focus:border-slate-800 ">
-                <a id="search-button" class="border border-slate-500 p-1 rounded-r shadow-lg active:border-slate-800">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 hover:scale-110 transition duration-300 ease-linear">
+                <input id="search-text" type= "text" placeholder="Insert Subject" class="bg-transparent border border-r-0 border-slate-500 p-2 rounded-l outline-none shadow-lg focus:border focus:border-slate-800 md:w-1/2 md:text-2xl">
+                <a id="search-button" class="border border-slate-500 p-1 rounded-r shadow-lg active:border-slate-800 md;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 cursor-pointer scale-animation md:w-10 md:h-10">
                         <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clip-rule="evenodd" />
                       </svg>                      
                 </a>
@@ -29,34 +30,34 @@
     </header>
     <section>
         <div id="error-container" class="flex-col items-center my-10 hidden">
-            <div class="border w-6/7 bg-red-200 rounded-xl p-3">
+            <div class="border w-6/7 bg-red-200 rounded-xl p-3 md:w-10/12">
                 <div class="flex flex-col items-center">
                     <div class="flex flex-row justify-center">                
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-red-700 mr-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-red-700 mr-2 md:w-10 md:h-10">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
                       </svg>    
-                        <p id="error-name" class="font-bold text-red-700 text-xl">Error Alert!</p> 
+                        <p id="error-name" class="font-bold text-red-700 text-xl md:text-4xl">Error Alert!</p> 
                     </div>
-                    <p id="error-message" class="mt-2 text-red-600 font-semibold text-center"></p>
-                    <p id="clear-error-button" class="inline-block text-center mt-2 text-red-600 border-2 border-red-700 py-1 px-2 rounded-2xl font-semibold hover:bg-red-300 transition-colors duration-500 ease-linear">OK</p>
+                    <p id="error-message" class="mt-2 text-red-600 font-semibold text-center md:text-2xl"></p>
+                    <p id="clear-error-button" class="inline-block text-center mt-2 text-red-600 border-2 border-red-700 py-1 px-3 rounded-2xl font-semibold hover:bg-red-300 transition-colors duration-500 ease-linear md:text-2xl">OK</p>
                 </div>
             </div>
         </div>
         <div class="shadow-lg border border-slate-900 m-5 p-3 text-center h-auto">
-            <h1 id="body-title" class="inline-block font-bold text-4xl border border-orange-600 border-x-2 border-y-0 p-2">How to use:</h1>
-            <h3 id="body-subtitle"></h3>
+            <h1 id="body-title" class="inline-block font-bold text-4xl border border-orange-600 border-x-2 border-y-0 p-2 md:text-6xl">How to use:</h1>
+            <h3 id="body-subtitle" class="font-medium text-2xl md:text-4xl"></h3>
             <div id="body-content" class="h-1/2">
-                <ul id="how-to-use-list" class = "list-decimal m-5 ">
+                <ul id="how-to-use-list" class = "list-decimal m-5 md:text-2xl">
                     <li>Write the subject you are looking for in the search bar</li>
                     <li>The subject must not have: first character capitalized or end space</li>
                     <li>Press the search button or enter to search the books related to the subject of your choice</li>
                     <li>A list of books will be displayed, click on the book title of the book you are interested in</li>
                     <li>The description of the selected book will be displayed</li>
                 </ul>
-                <ul id="book-list" class=""></ul>
-                <p id="book-description" class="hidden"></p>
-                <a id= "go-back-button" class="hidden border border-slate-900 items-center justify-center py-1 px-2 rounded-xl hover:scale-110 hover:bg-slate-500 transition-all duration-500 ease-linear">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ">
+                <ul id="book-list" class="md:text-2xl"></ul>
+                <p id="book-description" class="hidden p-5 text-left md:text-2xl"></p>
+                <a id= "go-back-button" class="hidden border border-slate-900 items-center justify-center py-1 px-2 rounded-xl cursor-pointer hover:bg-slate-500 scale-animation transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 md:w-10 md:h-10">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                   </svg>
                 </a>

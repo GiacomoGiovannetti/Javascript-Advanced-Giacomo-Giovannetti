@@ -4,4 +4,46 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components{
+    //imposta stili per container list elements
+    .card{
+        @apply border;
+        @apply border-slate-900; 
+        @apply grid;
+        @apply grid-cols-2;
+        @apply p-2;
+        @apply m-2;
+        @apply mt-5;
+        @apply font-semibold;
+        @apply rounded-2xl;
+        @apply shadow-lg;
+    }
 
+    //imposta stili per list element title
+    .book-title{
+        @apply cursor-pointer;
+        @apply hover:text-slate-800;
+        @apply flex;
+        @apply items-center;
+        @apply justify-center;
+    }
+
+    //imposta stili scrollbar
+    .scrollbar-style{
+        @apply scrollbar-thin;
+        @apply scrollbar-thumb-slate-900;
+        @apply scrollbar-thumb-rounded;
+        @apply scrollbar-track-slate-600;
+        @apply hover:scrollbar-thumb-slate-800;
+    }
+}
+
+@layer utilities{
+    //imposta stili dell'animazione per far ingrandire un elemento
+    .scale-animation{
+        @apply hover:scale-110;
+        @apply transition;
+        @apply duration-300; 
+        @apply ease-linear;
+    }
+}
