@@ -4,8 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+
 @layer components{
-    //imposta stili per container list elements
+    /* imposta stili per container list elements */
     .card{
         @apply border;
         @apply border-slate-900; 
@@ -19,16 +22,21 @@
         @apply shadow-lg;
     }
 
-    //imposta stili per list element title
+    /* imposta stili per list element title */
     .book-title{
         @apply cursor-pointer;
-        @apply hover:text-slate-800;
+        @apply hover:text-gray-950;
         @apply flex;
         @apply items-center;
         @apply justify-center;
+        @apply transition-transform;
+        @apply duration-300;
+        @apply ease-linear;
+        @apply hover:translate-x-1;
+
     }
 
-    //imposta stili scrollbar
+    /* imposta stili scrollbar */
     .scrollbar-style{
         @apply scrollbar-thin;
         @apply scrollbar-thumb-slate-900;
@@ -39,11 +47,15 @@
 }
 
 @layer utilities{
-    //imposta stili dell'animazione per far ingrandire un elemento
+    /* imposta stili dell animazione per far ingrandire un elemento */
     .scale-animation{
         @apply hover:scale-110;
         @apply transition;
         @apply duration-300; 
         @apply ease-linear;
     }
+    .autofill-bg-color{
+        @apply autofill:shadow-[inset_0_0_0px_1000px_rgb(229,229,229)];
+    }
 }
+
