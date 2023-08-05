@@ -31,6 +31,7 @@ export function networkError(err){
 
 //gestione errore status404 che manda a schermo un messaggio di avviso
 export function status404(err){
+    console.log(err);
     if(err.status === 404){
         errorMessage.textContent = `${err.message}, probably caused by: typo`;
     }
@@ -41,7 +42,7 @@ export function status404(err){
 //funzione per rimuovere il messaggio di avviso cliccando su un pulsante
 function clearError(){
     errorClearer.addEventListener('click', ()=>{
-        errorContainer.classList.replace('flex', 'hidden');
+    errorContainer.classList.replace('flex', 'hidden');
     })
 }
 

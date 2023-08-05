@@ -1,9 +1,7 @@
 import axios from 'axios';
 import { hideDescription } from './domManipulation.js';
-import { createList } from './index.js';
-import { createDescription } from './index.js';
-import { networkError } from './error-handling.js';
-import { status404 } from './error-handling.js';
+import { createList, createDescription } from './index.js';
+import { networkError, SubjectNotFound, status404 } from './error-handling.js';
 
 //crea funzione che prende i dati da API per categoria
 
