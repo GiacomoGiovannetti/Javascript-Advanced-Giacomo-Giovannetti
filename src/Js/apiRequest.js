@@ -8,6 +8,7 @@ import { networkError, SubjectNotFound, status404 } from './error-handling.js';
 export async function getBookList(searchInput){
     try{
         const response = await axios.get(`https://openlibrary.org/subjects/${searchInput}.json`);
+        console.log(response.data);
         const booksResponse = response.data.works;
         if(response.data.work_count == 0){
             throw new SubjectNotFound('Subject not found');
@@ -24,13 +25,15 @@ export async function getBookList(searchInput){
 
 // //crea funzione che prende la descrizione dall'API 
 
- export async function getBookDescription(bookKey){
+ export async function getBookDescription(bookKey , bookId){
     try{
         const response = await axios.get(`https://openlibrary.org${bookKey}.json`);
+        console.log(response.data);
         const titleResponse = response.data.title;
         const authorResponse = await getAuthorName(response.data.authors[0].author.key);
         const descriptionResponse = response.data.description;
-        createDescription(titleResponse, authorResponse, descriptionResponse);
+        const coverResponse = await getCover(bookId);
+        createDescription(titleResponse, authorResponse, descriptionResponse, coverResponse);
     }catch(err){
         console.error('errore nella presa di dati', err);
     }
@@ -43,6 +46,18 @@ async function getAuthorName(authorKey){
         const response = await axios.get( `https://openlibrary.org${authorKey}.json`);
         let authorName =  response.data.name;
         return authorName;
+    }catch(err){
+        console.error('errore nella presa di dati', err);
+    }
+}
+
+async function getCover(bookId){
+    const olid = `OLID:${bookId}`;
+    try{
+        const response = await axios.get(`https://openlibrary.org/api/books?bibkeys=OLID:${bookId}&format=json&jscmd=data`)
+        console.log(response)
+        const coverURL = response.data[olid].cover.medium;
+        return coverURL;
     }catch(err){
         console.error('errore nella presa di dati', err);
     }

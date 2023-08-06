@@ -1,6 +1,7 @@
 let bodySubtitle = document.querySelector('#body-subtitle');
 let bookDescription = document.querySelector('#book-description');
 let goBackButton = document.querySelector('#go-back-button');
+let Cover = document.querySelector('#cover');
 
 //funzione generazione elementi HTML 
 export function createElement(name, tag, parent, classSelector){
@@ -21,7 +22,7 @@ export function listDomManipulation(bodyTitle, howToUseList ,bookListElement){
 }
 
 //funzione per l'inserimento del contenuto nel elemento descrizione
-export function addDescriptionContent(titleElement, title, author, description){
+export function addDescriptionContent(titleElement, title, author, description, coverURL){
     titleElement.textContent = `${title}`;
     bodySubtitle.textContent= `${author}`;
     if(typeof description === 'object'){
@@ -29,6 +30,7 @@ export function addDescriptionContent(titleElement, title, author, description){
     }else{
         bookDescription.textContent= `${description}`;
     }
+    cover.src= `${coverURL}`;
 }
 
 //funzione per nascondere tutti gli elementi relativi alla descrizione
