@@ -42,8 +42,7 @@ searchButton.addEventListener('click', (e)=>{
     addListElements(booksResponse, bookListElement);
     bookListElement.addEventListener('click', (e)=>{
         let bookKey = e.target.id;
-        let bookId = e.target.attributes[2].nodeValue;
-        getBookDescription(bookKey, bookId);
+        getBookDescription(bookKey);
 
     })
  } 
@@ -53,18 +52,17 @@ searchButton.addEventListener('click', (e)=>{
     for(let element of booksResponse){
         //crea container della coppia titolo/autore degli elementi della lista 
         const containerListElement = createElement('containerListElement','div', bookListElement, ['container-list-element', 'card']);   
-        createListElement(containerListElement, element.title, '', element.key, element.availability.openlibrary_edition);
+        createListElement(containerListElement, element.title, '', element.key);
         createListElement(containerListElement, '', element.authors[0].name);
     }
  }
 //crea elementi della lista, in base ai parametri forniti crea l'elemento titolo oppure autore
- function createListElement(parent, bookTitle, bookAuthor, bookKey, bookId){
+ function createListElement(parent, bookTitle, bookAuthor, bookKey){
     const listElement = createElement('listElement', 'li', parent, 'list-element');
     if (bookTitle){
         listElement.textContent = `${bookTitle}`;
         addTailwindClass(listElement, ['book-title']);
         listElement.setAttribute('id', `${bookKey}`);
-        listElement.setAttribute('book-id', `${bookId}`);
     }else{
         listElement.textContent = `${bookAuthor}`;
         addTailwindClass(listElement, ['flex', 'items-center', 'justify-center']);
@@ -72,13 +70,11 @@ searchButton.addEventListener('click', (e)=>{
  }
 
  //funzione genera elemento con descrizione del libro, inserisce il contenuto e rende visibile un pulsante per tornare alla lista 
-export function createDescription(title, author, description, coverURL){
+export function createDescription(title, author, description){
     addTailwindClass(bookListElement, ['hidden']);
     removeTailwindClass(bookDescription, ['hidden']);
     goBackButton.classList.replace('hidden', 'inline-flex');
-    //addTailwindClass(bodySubtitle, ['font-medium', 'text-2xl', 'md:text'])
-    //addTailwindClass(bookDescription, ['p-5', 'text-left'])
-    addDescriptionContent(bodyTitle, title, author, description, coverURL);
+    addDescriptionContent(bodyTitle, title, author, description);
 }
 //funzione per reset della pagina
 resetPage.addEventListener('click', ()=> {

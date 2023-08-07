@@ -22,7 +22,7 @@ export function listDomManipulation(bodyTitle, howToUseList ,bookListElement){
 }
 
 //funzione per l'inserimento del contenuto nel elemento descrizione
-export function addDescriptionContent(titleElement, title, author, description, coverURL){
+export function addDescriptionContent(titleElement, title, author, description){
     titleElement.textContent = `${title}`;
     bodySubtitle.textContent= `${author}`;
     if(typeof description === 'object'){
@@ -30,7 +30,6 @@ export function addDescriptionContent(titleElement, title, author, description, 
     }else{
         bookDescription.textContent= `${description}`;
     }
-    cover.src= `${coverURL}`;
 }
 
 //funzione per nascondere tutti gli elementi relativi alla descrizione
@@ -38,7 +37,7 @@ export function hideDescription(){
     bodySubtitle.textContent = '';
     addTailwindClass(bookDescription, ['hidden']);
     addTailwindClass(goBackButton , ['hidden']);
-    bookDescription.textContent = '';
+    bookDescription.textContent = ''; 
 }
 
 

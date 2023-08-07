@@ -25,40 +25,32 @@ export async function getBookList(searchInput){
 
 // //crea funzione che prende la descrizione dall'API 
 
- export async function getBookDescription(bookKey , bookId){
+ export async function getBookDescription(bookKey){
     try{
         const response = await axios.get(`https://openlibrary.org${bookKey}.json`);
         console.log(response.data);
         const titleResponse = response.data.title;
-        const authorResponse = await getAuthorName(response.data.authors[0].author.key);
+        const authorResponse = await getAuthorName(response.data.authors);
         const descriptionResponse = response.data.description;
-        const coverResponse = await getCover(bookId);
-        createDescription(titleResponse, authorResponse, descriptionResponse, coverResponse);
+        createDescription(titleResponse, authorResponse, descriptionResponse);
     }catch(err){
-        console.error('errore nella presa di dati', err);
+        console.error('errore nella presa di dati a descr', err);
     }
 }
 
 
 //crea funzione che prende il nome dell'autore dall'API
-async function getAuthorName(authorKey){
+async function getAuthorName(authors){
+    let authorsName = []
     try{
-        const response = await axios.get( `https://openlibrary.org${authorKey}.json`);
-        let authorName =  response.data.name;
-        return authorName;
+        for(let element of authors){
+            const response = await axios.get( `https://openlibrary.org${element.author.key}.json`);
+            let authorName =  `${response.data.name} `;
+            authorsName.push(authorName);
+        }
+        console.log(authorsName);
+        return authorsName;
     }catch(err){
-        console.error('errore nella presa di dati', err);
-    }
-}
-
-async function getCover(bookId){
-    const olid = `OLID:${bookId}`;
-    try{
-        const response = await axios.get(`https://openlibrary.org/api/books?bibkeys=OLID:${bookId}&format=json&jscmd=data`)
-        console.log(response)
-        const coverURL = response.data[olid].cover.medium;
-        return coverURL;
-    }catch(err){
-        console.error('errore nella presa di dati', err);
+        console.error('errore nella presa di dati ad autore', err);
     }
 }
