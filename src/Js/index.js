@@ -21,7 +21,6 @@ searchText.addEventListener('keypress', (e)=>{
     //La funzione controlla che il tasto premuto sia 'invio', se lo è prende il testo di 'searchText'
     if(e.keyCode === 13){
         searchInput = e.target.value.toLowerCase();
-        console.log(searchInput);
         SearchInputEmpty(searchInput);
         getBookList(searchInput);
     }

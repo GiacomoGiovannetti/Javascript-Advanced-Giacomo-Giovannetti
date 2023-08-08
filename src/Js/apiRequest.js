@@ -31,7 +31,6 @@ export async function getBookList(searchInput){
         const authorResponse = await getAuthorName(response.data.authors);
         const descriptionResponse = response.data.description;
         const coverImg = (coverId == 'undefined' ) ? undefined : `https://covers.openlibrary.org/b/id/${coverId}-M.jpg`;
-        console.log(coverImg);
         createDescription(titleResponse, authorResponse, descriptionResponse, coverImg);
     }catch(err){
         console.error('errore nella presa di dati alla descrizione', err);
