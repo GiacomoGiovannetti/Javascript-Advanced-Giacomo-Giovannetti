@@ -1,5 +1,5 @@
-import {getBookList, getBookDescription, getThumbnail} from './apiRequest';
-import { createElement, listDomManipulation , addDescriptionContent 
+import {getBookList, getBookDescription} from './apiRequest';
+import { createElement, listDomManipulation ,addThumbnailContent , addDescriptionContent 
         ,addTailwindClass, removeTailwindClass, resetPageContent, hideDescription} from './domManipulation';
 import { SearchInputEmpty } from './error-handling';
 import '../css/style.css';
@@ -41,33 +41,26 @@ searchButton.addEventListener('click', (e)=>{
     listDomManipulation(bodyTitle, howToUseList ,bookListElement);
     addListElements(booksResponse, bookListElement);
     bookListElement.addEventListener('click', (e)=>{
-        let bookKey = e.target.id;
-        let coverId = e.target.attributes[2].nodeValue;
-        console.log(coverId);
-        getBookDescription(bookKey, coverId);
-
+        if(e.target.classList.contains('book-title')){
+            let bookKey = e.target.id;
+            let coverId = e.target.attributes[2].nodeValue;
+            getBookDescription(bookKey, coverId);
+        }else{
+            e.preventDefault();
+        }
     })
  } 
 
  //Itera gli elementi di bookList creando gli elementi della lista HTML 
  function addListElements(booksResponse, bookListElement){
     for(let element of booksResponse){
-        //verifica se è presente cover_id
-        // if(element.cover_id){
-        //     const coverId = element.cover_id;
-        //     console.log(coverId);
-        // }
         const coverId = element.cover_id ? `${element.cover_id}` : undefined; 
 
         //crea container della coppia titolo/autore degli elementi della lista 
         const card = createElement('card','div', bookListElement, ['card', 'card-styles']);
-        const thumbnail = createElement('thumbnail', 'img', card, ['book-thumbnail']);
-        if(coverId == undefined){
-            addTailwindClass(thumbnail, ['hidden']);
-            addTailwindClass(card, ['grid-cols-2']);
-        }else{
-            thumbnail.src = `https://covers.openlibrary.org/b/id/${coverId}-S.jpg`;
-        }   
+        const thumbnailContainer = createElement('thumbnailContainer', 'div', card, ['tumbnail-container', 'flex', 'items-center', 'justify-center'])
+        const thumbnail = createElement('thumbnail', 'img', thumbnailContainer, ['book-thumbnail']);
+        addThumbnailContent(coverId, card, thumbnail, thumbnailContainer);
         createListElement(card, element.title, '', element.key, coverId);
         createListElement(card, '', element.authors[0].name);
     }
@@ -82,16 +75,16 @@ searchButton.addEventListener('click', (e)=>{
         listElement.setAttribute('data-cover-id', `${coverId}`);
     }else{
         listElement.textContent = `${bookAuthor}`;
-        addTailwindClass(listElement, ['flex', 'items-center', 'justify-center']);
+        addTailwindClass(listElement, ['flex', 'items-center', 'justify-center', 'col-span-2']);
     }
  }
 
  //funzione genera elemento con descrizione del libro, inserisce il contenuto e rende visibile un pulsante per tornare alla lista 
-export function createDescription(title, author, description, coverId){
+export function createDescription(title, author, description, coverImg){
     addTailwindClass(bookListElement, ['hidden']);
     removeTailwindClass(bookDescription, ['hidden']);
     goBackButton.classList.replace('hidden', 'inline-flex');
-    addDescriptionContent(bodyTitle, title, author, description, coverId);
+    addDescriptionContent(bodyTitle, title, author, description, coverImg);
 }
 //funzione per reset della pagina
 resetPage.addEventListener('click', ()=> {

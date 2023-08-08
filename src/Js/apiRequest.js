@@ -8,7 +8,6 @@ import { networkError, SubjectNotFound, status404 } from './error-handling.js';
 export async function getBookList(searchInput){
     try{
         const response = await axios.get(`https://openlibrary.org/subjects/${searchInput}.json`);
-        console.log(response.data);
         const booksResponse = response.data.works;
         if(response.data.work_count == 0){
             throw new SubjectNotFound('Subject not found');
@@ -28,15 +27,14 @@ export async function getBookList(searchInput){
  export async function getBookDescription(bookKey, coverId){
     try{
         const response = await axios.get(`https://openlibrary.org${bookKey}.json`);
-        console.log(response.data);
         const titleResponse = response.data.title;
         const authorResponse = await getAuthorName(response.data.authors);
         const descriptionResponse = response.data.description;
-        const cover = (coverId == 'undefined' ) ? undefined : `https://covers.openlibrary.org/b/id/${coverId}-M.jpg`;
-        console.log(cover);
-        createDescription(titleResponse, authorResponse, descriptionResponse, cover);
+        const coverImg = (coverId == 'undefined' ) ? undefined : `https://covers.openlibrary.org/b/id/${coverId}-M.jpg`;
+        console.log(coverImg);
+        createDescription(titleResponse, authorResponse, descriptionResponse, coverImg);
     }catch(err){
-        console.error('errore nella presa di dati a descr', err);
+        console.error('errore nella presa di dati alla descrizione', err);
     }
 }
 
@@ -50,7 +48,6 @@ async function getAuthorName(authors){
             let authorName =  `${response.data.name} `;
             authorsName.push(authorName);
         }
-        console.log(authorsName);
         return authorsName;
     }catch(err){
         console.error('errore nella presa di dati ad autore', err);

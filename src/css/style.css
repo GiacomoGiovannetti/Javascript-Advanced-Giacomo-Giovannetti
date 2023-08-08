@@ -13,7 +13,7 @@
         @apply border;
         @apply border-slate-900; 
         @apply grid;
-        @apply grid-cols-3;
+        @apply grid-cols-5;
         @apply p-2;
         @apply m-2;
         @apply mt-5;
@@ -29,6 +29,7 @@
         @apply flex;
         @apply items-center;
         @apply justify-center;
+        @apply col-span-2;
         @apply transition-transform;
         @apply duration-300;
         @apply ease-linear;

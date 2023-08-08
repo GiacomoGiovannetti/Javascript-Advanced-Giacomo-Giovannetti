@@ -21,6 +21,16 @@ export function listDomManipulation(bodyTitle, howToUseList ,bookListElement){
     bookListElement.innerHTML='';
 }
 
+//funzione per l'inserimento dell'img nel elemento thumbnail
+export function addThumbnailContent(coverId, card, thumbnail, thumbnailContainer){
+    if(coverId == undefined){
+        addTailwindClass(thumbnailContainer, ['hidden']);
+        addTailwindClass(card, ['grid-cols-4']);
+    }else{
+        thumbnail.src = `https://covers.openlibrary.org/b/id/${coverId}-S.jpg`;
+    }
+}
+
 //funzione per l'inserimento del contenuto nel elemento descrizione
 export function addDescriptionContent(titleElement, title, author, description, coverImg){
     titleElement.textContent = `${title}`;

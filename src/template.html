@@ -46,7 +46,7 @@
         <div class="shadow-lg border border-emerald-900 m-5 p-3 text-center h-auto md:border-2">
             <h1 id="body-title" class="inline-block font-bold text-4xl border border-orange-500 border-x-2 border-y-0 p-2 md:text-6xl md:border-2 md:border-y-0">How to use:</h1>
             <h3 id="body-subtitle" class="font-medium text-2xl md:text-4xl"></h3>
-            <div id="body-content" class="h-1/2">
+            <div id="body-content" class="h-auto">
                 <ul id="how-to-use-list" class = "list-decimal m-5 md:text-2xl">
                     <li>Write the subject you are looking for in the search bar</li>
                     <li>The subject must not have end space</li>
@@ -55,8 +55,8 @@
                     <li>The description of the selected book will be displayed</li>
                 </ul>
                 <ul id="book-list" class="md:text-2xl"></ul>
-                <img id="cover" src="">
-                <p id="book-description" class="hidden p-5 text-left md:text-2xl"></p>
+                <img id="cover" class="hidden p-1 border border-emerald-900 rounded m-2 mt-5 float-left" src="">
+                <p id="book-description" class="hidden p-5 text-left md:text-2xl min-h-[300px] align-top"></p>
                 <a id= "go-back-button" class="hidden border border-emerald-900 items-center justify-center py-1 px-2 rounded-xl cursor-pointer hover:bg-neutral-200 scale-animation transition-all md:border-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 md:w-10 md:h-10">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
