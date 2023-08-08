@@ -13,8 +13,8 @@ export async function getBookList(searchInput){
         if(response.data.work_count == 0){
             throw new SubjectNotFound('Subject not found');
         }else{
-        createList(booksResponse);
-        hideDescription();
+            createList(booksResponse);
+            hideDescription();
         }
     }catch(err){
         console.error('errore nella presa di dati', err);
@@ -23,16 +23,18 @@ export async function getBookList(searchInput){
     }
 }
 
-// //crea funzione che prende la descrizione dall'API 
+//crea funzione che prende la descrizione dall'API 
 
- export async function getBookDescription(bookKey){
+ export async function getBookDescription(bookKey, coverId){
     try{
         const response = await axios.get(`https://openlibrary.org${bookKey}.json`);
         console.log(response.data);
         const titleResponse = response.data.title;
         const authorResponse = await getAuthorName(response.data.authors);
         const descriptionResponse = response.data.description;
-        createDescription(titleResponse, authorResponse, descriptionResponse);
+        const cover = (coverId == 'undefined' ) ? undefined : `https://covers.openlibrary.org/b/id/${coverId}-M.jpg`;
+        console.log(cover);
+        createDescription(titleResponse, authorResponse, descriptionResponse, cover);
     }catch(err){
         console.error('errore nella presa di dati a descr', err);
     }

@@ -1,7 +1,7 @@
 let bodySubtitle = document.querySelector('#body-subtitle');
 let bookDescription = document.querySelector('#book-description');
 let goBackButton = document.querySelector('#go-back-button');
-let Cover = document.querySelector('#cover');
+let cover = document.querySelector('#cover');
 
 //funzione generazione elementi HTML 
 export function createElement(name, tag, parent, classSelector){
@@ -22,13 +22,22 @@ export function listDomManipulation(bodyTitle, howToUseList ,bookListElement){
 }
 
 //funzione per l'inserimento del contenuto nel elemento descrizione
-export function addDescriptionContent(titleElement, title, author, description){
+export function addDescriptionContent(titleElement, title, author, description, coverImg){
     titleElement.textContent = `${title}`;
     bodySubtitle.textContent= `${author}`;
     if(typeof description === 'object'){
         bookDescription.textContent= `${description.value}`;
+    }else if(typeof description === 'undefined'){
+        bookDescription.textContent= `There isn't a description available for this book`;
     }else{
         bookDescription.textContent= `${description}`;
+    }
+    if(coverImg === undefined){
+        cover.src=`${coverImg}`;
+        addTailwindClass(cover, ['hidden']);
+    }else{
+        removeTailwindClass(cover, ['hidden']);
+        cover.src=`${coverImg}`;
     }
 }
 
@@ -37,6 +46,7 @@ export function hideDescription(){
     bodySubtitle.textContent = '';
     addTailwindClass(bookDescription, ['hidden']);
     addTailwindClass(goBackButton , ['hidden']);
+    addTailwindClass(cover, ['hidden']);
     bookDescription.textContent = ''; 
 }
 
