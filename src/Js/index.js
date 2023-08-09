@@ -54,6 +54,7 @@ searchButton.addEventListener('click', (e)=>{
  function addListElements(booksResponse, bookListElement){
     for(let element of booksResponse){
         const coverId = element.cover_id ? `${element.cover_id}` : undefined; 
+        const authorName = element.authors[0] ? `${element.authors[0].name}` : undefined;
 
         //crea container della coppia titolo/autore degli elementi della lista 
         const card = createElement('card','div', bookListElement, ['card', 'card-styles']);
@@ -61,7 +62,7 @@ searchButton.addEventListener('click', (e)=>{
         const thumbnail = createElement('thumbnail', 'img', thumbnailContainer, ['book-thumbnail']);
         addThumbnailContent(coverId, card, thumbnail, thumbnailContainer);
         createListElement(card, element.title, '', element.key, coverId);
-        createListElement(card, '', element.authors[0].name);
+        createListElement(card, '', authorName);
     }
  }
 //crea elementi della lista, in base ai parametri forniti crea l'elemento titolo oppure autore
@@ -73,8 +74,12 @@ searchButton.addEventListener('click', (e)=>{
         listElement.setAttribute('id', `${bookKey}`);
         listElement.setAttribute('data-cover-id', `${coverId}`);
     }else{
-        listElement.textContent = `${bookAuthor}`;
         addTailwindClass(listElement, ['flex', 'items-center', 'justify-center', 'col-span-2']);
+        if(bookAuthor == undefined){
+            listElement.textContent = `Author not found`;
+        }else{
+            listElement.textContent = `${bookAuthor}`;
+        }
     }
  }
 

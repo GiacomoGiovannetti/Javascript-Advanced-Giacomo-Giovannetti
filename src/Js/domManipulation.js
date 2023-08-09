@@ -34,7 +34,13 @@ export function addThumbnailContent(coverId, card, thumbnail, thumbnailContainer
 //funzione per l'inserimento del contenuto nel elemento descrizione
 export function addDescriptionContent(titleElement, title, author, description, coverImg){
     titleElement.textContent = `${title}`;
-    bodySubtitle.textContent= `${author}`;
+
+    if(author === undefined){
+        bodySubtitle.textContent= `Author not found`;
+    }else{
+        bodySubtitle.textContent= `${author}`;
+    }
+
     if(typeof description === 'object'){
         bookDescription.textContent= `${description.value}`;
     }else if(typeof description === 'undefined'){
@@ -42,6 +48,7 @@ export function addDescriptionContent(titleElement, title, author, description, 
     }else{
         bookDescription.textContent= `${description}`;
     }
+
     if(coverImg === undefined){
         cover.src=`${coverImg}`;
         addTailwindClass(cover, ['hidden']);

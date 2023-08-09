@@ -8,6 +8,7 @@ import { networkError, SubjectNotFound, status404 } from './error-handling.js';
 export async function getBookList(searchInput){
     try{
         const response = await axios.get(`https://openlibrary.org/subjects/${searchInput}.json`);
+        console.log(response.data.works);
         const booksResponse = response.data.works;
         if(response.data.work_count == 0){
             throw new SubjectNotFound('Subject not found');
