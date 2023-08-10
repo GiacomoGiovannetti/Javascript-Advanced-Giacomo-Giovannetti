@@ -64,7 +64,3 @@ That's my project, try it here: [Library](https://js-advanced-giacomo-giovannett
 My Linkedin Profile: [Linkedin](https://www.linkedin.com/in/giacomogiovannetti/)
 
 My email if you have any questions: giovannettii.giacomo@gmail.com
-
-* The Homepage: Where the user lands once he opens the Web app, it contains its Title, the search bar and a list of instructions to explain how to use it correctly
-* The Book List screen: Once the user searches for a subject it is display and is made by a list of cards containing the main info about each book, like the title, its main author and the cover 
-* The Description screen: it's displayed when the user clicks on the book title of the book he's interested in, once he does that the book list disappears and the page display the Book title with all the authors, cover and description. Here is also present a button to return to the book list. 
