@@ -46,6 +46,10 @@ function clearError(){
     })
 }
 
+export function clearErrorOnResearch(){
+    errorContainer.classList.replace('flex', 'hidden');
+}
+
 function showError(){
     errorContainer.classList.replace('hidden', 'flex');
 }
